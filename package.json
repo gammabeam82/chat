@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "DEBUG=myapp:* node ./bin/www",
-    "watch": "nodemon ./bin/www --watch"
+    "watch": "DEBUG=myapp:* nodemon ./bin/www --watch"
   },
   "dependencies": {
     "body-parser": "~1.18.2",

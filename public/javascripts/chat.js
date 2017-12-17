@@ -15,6 +15,7 @@ window.onload = () => {
   const button = document.getElementById('submit-button');
   const chat = document.getElementById('chat-container');
   const feedback = document.getElementById('feedback');
+  const online = document.getElementById('online');
 
   const socket = io('', {
     reconnection: false,
@@ -48,6 +49,12 @@ window.onload = () => {
     feedback.innerText = '';
   };
 
+  $('[data-toggle="popover"]').popover({
+    html: true,
+    trigger: 'hover',
+    placement: 'bottom'
+  });
+
   socket.emit(events.ONLINE, username);
 
   form.addEventListener('submit', event => event.preventDefault());
@@ -72,4 +79,14 @@ window.onload = () => {
   socket.on(events.ONLINE, data => feedback.innerText = `${data} is online.`);
 
   socket.on(events.OFFLINE, data => feedback.innerText = `${data} is offline.`);
+
+  socket.on(events.UPDATE_LIST, (data) => {
+    online.innerText = `Online: ${data.length}`;
+    online.dataset.content = '';
+    let content = '';
+    data.forEach((item) => {
+      content += `${item}<br/>`;
+    });
+    online.dataset.content = content;
+  });
 };

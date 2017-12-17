@@ -12,6 +12,7 @@ const SocketioService = {
       socket.on(events.ONLINE, (data) => {
         users.set(socket.id, data);
         socket.broadcast.emit(events.ONLINE, data);
+        io.emit(events.UPDATE_LIST, Array.from(users.values()));
       });
 
       socket.on(events.MESSAGE, (data) => {
@@ -32,6 +33,7 @@ const SocketioService = {
         let user = users.get(socket.id);
         users.delete(socket.id);
         io.emit(events.OFFLINE, user);
+        io.emit(events.UPDATE_LIST, Array.from(users.values()));
       });
     });
 
