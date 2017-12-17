@@ -82,11 +82,6 @@ window.onload = () => {
 
   socket.on(events.UPDATE_LIST, (data) => {
     online.innerText = `Online: ${data.length}`;
-    online.dataset.content = '';
-    let content = '';
-    data.forEach((item) => {
-      content += `${item}<br/>`;
-    });
-    online.dataset.content = content;
+    online.dataset.content = data.map(item => `${item}<br/>`).join('');
   });
 };
