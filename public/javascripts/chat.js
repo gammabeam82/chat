@@ -70,4 +70,6 @@ window.onload = () => {
   socket.on(events.TYPING, data => feedback.innerText = `${data} is typing...`);
 
   socket.on(events.ONLINE, data => feedback.innerText = `${data} is online.`);
+
+  socket.on(events.OFFLINE, data => feedback.innerText = `${data} is offline.`);
 };
