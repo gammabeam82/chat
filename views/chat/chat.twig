@@ -1,0 +1,27 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+
+  <div class="container content">
+    <div class="row">
+      <div class="col-5">
+        <form id="chat-form" data-id="{{ user._id }}" data-username="{{ user.username }}">
+          <div class="form-group">
+            <textarea class="form-control" id="msg" rows="3"></textarea>
+          </div>
+          <button type="submit" id="submit-button" class="btn btn-primary">Send</button>
+        </form>
+        <br><br>
+        <div id="feedback" class="text-muted"></div>
+      </div>
+      <div class="col-7" id="chat-container">
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/javascripts/chat.js"></script>
+{% endblock %}

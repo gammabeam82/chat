@@ -1,0 +1,25 @@
+{% set messages = getMessages() %}
+
+{% if messages.error is defined or messages.success is defined %}
+
+  <div class="container content">
+    <div class="row">
+      <div class="col">
+
+        {% for error in messages.error %}
+          <div class="alert alert-danger" role="alert">
+            {{ error }}
+          </div>
+        {% endfor %}
+
+        {% for message in messages.success %}
+          <div class="alert alert-success" role="alert">
+            {{ message }}
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+{% endif %}
