@@ -2,10 +2,12 @@
 
 {% block body %}
 
+  {% set name = user.name or user.username %}
+
   <div class="container content">
     <div class="row">
       <div class="col-5">
-        <form id="chat-form" data-id="{{ user._id }}" data-username="{{ user.username }}">
+        <form id="chat-form" data-id="{{ user._id }}" data-username="{{ name }}">
           <div class="form-group">
             <textarea class="form-control" id="msg" rows="3"></textarea>
           </div>

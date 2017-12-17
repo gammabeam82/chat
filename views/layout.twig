@@ -10,6 +10,10 @@
 </head>
 <body>
 
+{% if user is defined %}
+  {% set name = user.name or user.username %}
+{% endif %}
+
 <div class="container">
   <div class="row">
     <div class="col">
@@ -28,7 +32,7 @@
               <a class="nav-item nav-link" href="/register">Register</a>
             {% else %}
               <a class="nav-item nav-link" href="/chat">Chat</a>
-              <a class="nav-item nav-link" href="/logout">Logout ({{ user.username }})</a>
+              <a class="nav-item nav-link" href="/logout">Logout ({{ name }})</a>
             {% endif %}
           </div>
         </div>
