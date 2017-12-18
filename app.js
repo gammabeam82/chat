@@ -11,6 +11,7 @@ const {Strategy} = require('passport-local');
 const {secret, sessionName} = require('./app/config/config');
 const User = require('./app/models/user');
 const SocketioService = require('./app/service/socketioService');
+const setUserMiddleware = require('./app/middleware/set-user');
 
 const indexRoutes = require('./app/routes/index');
 const authRoutes = require('./app/routes/auth');
@@ -43,6 +44,8 @@ app.use(passport.session());
 passport.use(new Strategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use(setUserMiddleware);
 
 app.use('/', indexRoutes);
 app.use('/', authRoutes);

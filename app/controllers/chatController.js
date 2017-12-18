@@ -1,8 +1,6 @@
 const ChatController = {
   getChat: (req, res, next) => {
-    res.render('chat/chat', {
-      user: req.user
-    });
+    res.render('chat/chat', {});
   }
 };
 

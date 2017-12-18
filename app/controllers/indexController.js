@@ -1,8 +1,6 @@
 const IndexController = {
   getIndex: (req, res, next) => {
-    res.render('index/index', {
-      user: req.user
-    });
+    res.render('index/index', {});
   }
 };
 
