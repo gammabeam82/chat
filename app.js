@@ -3,7 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const mongoConnection = require('./app/db/mongo-connection');
+const mongoConnection = require('./app/middleware/mongo-connection');
 const session = require('express-session');
 const flash = require('express-flash-messages');
 const passport = require('passport');
@@ -26,7 +26,7 @@ app.set('view engine', 'twig');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(logger('dev'));
-app.use(mongoConnection());
+app.use(mongoConnection);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
