@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "dev": "DEBUG=myapp:* NODE_ENV=development node ./bin/www",
     "watch": "DEBUG=myapp:* NODE_ENV=development nodemon ./bin/www --watch",
-    "docker": "DEBUG=myapp:* NODE_ENV=docker node ./bin/www"
+    "docker": "DEBUG=myapp:* NODE_ENV=docker nodemon ./bin/www --watch"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
