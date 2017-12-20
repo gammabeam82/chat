@@ -1,21 +1,22 @@
 const events = require('../config/events');
-const io = require('socket.io')();
+const Server = require('socket.io');
 const striptags = require('striptags');
 const dateFormat = require('dateformat');
 
 const users = new Map();
+const io = new Server();
 
 const SocketioService = {
   attachEvents: () => {
-    io.on(events.CONNECTION, (socket) => {
+    io.on(events.CONNECTION, socket => {
 
-      socket.on(events.ONLINE, (data) => {
+      socket.on(events.ONLINE, data => {
         users.set(socket.id, data);
         socket.broadcast.emit(events.ONLINE, data);
         io.emit(events.UPDATE_LIST, Array.from(users.values()));
       });
 
-      socket.on(events.MESSAGE, (data) => {
+      socket.on(events.MESSAGE, data => {
         let msg = striptags(data.message.trim());
         if (!msg.length) {
           return;
@@ -27,7 +28,7 @@ const SocketioService = {
         });
       });
 
-      socket.on(events.TYPING, (data) => socket.broadcast.emit('typing', data));
+      socket.on(events.TYPING, data => socket.broadcast.emit('typing', data));
 
       socket.on(events.DISCONNECT, () => {
         let user = users.get(socket.id);

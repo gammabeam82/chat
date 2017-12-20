@@ -15,7 +15,7 @@ const mongoConnection = (req, res, next) => {
         isConnected = true;
         next();
       })
-      .catch((error) => next(error));
+      .catch(error => next(error));
   } else {
     next();
   }

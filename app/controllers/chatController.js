@@ -1,5 +1,5 @@
 const ChatController = {
-  getChat: (req, res, next) => {
+  getChat: (req, res) => {
     res.render('chat/chat', {});
   }
 };

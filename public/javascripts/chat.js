@@ -9,8 +9,8 @@ const events = {
 
 window.onload = () => {
   const form = document.getElementById('chat-form');
-  const userId = form.getAttribute('data-id');
-  const username = form.getAttribute('data-username');
+  const userId = form.dataset.id;
+  const username = form.dataset.username;
   const textInput = document.getElementById('msg');
   const button = document.getElementById('submit-button');
   const chat = document.getElementById('chat-container');
@@ -22,7 +22,7 @@ window.onload = () => {
     forceNew: true
   });
 
-  const displayMessage = (data) => {
+  const displayMessage = data => {
     let el = document.createElement('div');
     let sender = data.name === username ? '<span class="text-success">Me</span>' : `<i><span class="text-danger">${data.name}</span></i>`;
     el.innerHTML = `<strong>${sender}</strong> <small class="text-muted">(${data.time})</small>): ${data.message}`;
@@ -65,7 +65,7 @@ window.onload = () => {
 
   button.addEventListener('click', sendMessage);
 
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener('keydown', event => {
     if (event.which === 13) {
       event.preventDefault();
       sendMessage();
@@ -80,7 +80,7 @@ window.onload = () => {
 
   socket.on(events.OFFLINE, data => feedback.innerText = `${data} is offline.`);
 
-  socket.on(events.UPDATE_LIST, (data) => {
+  socket.on(events.UPDATE_LIST, data => {
     online.innerText = `Online: ${data.length}`;
     online.dataset.content = data.map(item => `${item}<br/>`).join('');
   });
