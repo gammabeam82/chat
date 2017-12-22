@@ -25,7 +25,7 @@ window.onload = () => {
   const displayMessage = data => {
     let el = document.createElement('div');
     let sender = data.name === username ? '<span class="text-success">Me</span>' : `<i><span class="text-danger">${data.name}</span></i>`;
-    el.innerHTML = `<strong>${sender}</strong> <small class="text-muted">(${data.time})</small>): ${data.message}`;
+    el.innerHTML = `<strong>${sender}</strong> <small class="text-muted">(${data.time})</small>): ${data.message}<hr/>`;
 
     chat.appendChild(el);
     el.scrollIntoView();

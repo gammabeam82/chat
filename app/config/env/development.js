@@ -1,5 +1,8 @@
 module.exports = {
-  DB: 'mongodb://172.17.0.2/testdb',
-  sessionName: 'sessionId_',
-  secret: 'khd8&SF857Sfg8e6358sGyIGrghf6'
+  DB: 'mongodb://localhost:27017/testdb',
+  SESSION_NAME: 'sessionId_',
+  SECRET: 'khd8&SF857Sfg8e6358sGyIGrghf6',
+  REDIS: 'redis://localhost:6379',
+  LIST_ID: 'chat_messages',
+  LIMIT: 15
 };

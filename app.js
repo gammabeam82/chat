@@ -8,9 +8,9 @@ const session = require('express-session');
 const flash = require('express-flash-messages');
 const passport = require('passport');
 const {Strategy} = require('passport-local');
-const {secret, sessionName} = require('./app/config/config');
+const {SECRET, SESSION_NAME} = require('./app/config/config');
 const User = require('./app/models/user');
-const SocketioService = require('./app/service/socketioService');
+const ChatService = require('./app/service/chatService');
 const setUserMiddleware = require('./app/middleware/set-user');
 
 const indexRoutes = require('./app/routes/index');
@@ -18,7 +18,7 @@ const authRoutes = require('./app/routes/auth');
 const chatRoutes = require('./app/routes/chat');
 
 const app = express();
-app.io = SocketioService.attachEvents();
+app.io = ChatService.attachEvents();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
@@ -33,8 +33,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(session({
-  secret,
-  name: sessionName,
+  secret: SECRET,
+  name: SESSION_NAME,
   resave: false,
   saveUninitialized: false
 }));
