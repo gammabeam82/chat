@@ -15,10 +15,12 @@ const ChatService = {
 
       socket.on(events.ONLINE, data => {
         users.set(socket.id, data);
+
         socket.broadcast.emit(events.ONLINE, data);
         io.emit(events.UPDATE_LIST, Array.from(users.values()));
+
         redisClient.lrange(LIST_ID, 0, LIMIT, (err, items) => {
-          items.reverse().map((item) => socket.emit(events.CHAT_MESSAGE, JSON.parse(item)));
+          items.reverse().map(item => socket.emit(events.CHAT_MESSAGE, JSON.parse(item)));
         });
       });
 
@@ -27,13 +29,17 @@ const ChatService = {
         if (!msg.length) {
           return;
         }
+
         let chatMessage = {
           name: data.name,
           message: msg,
           time: dateFormat(new Date(), 'HH:MM:ss')
         };
+
         redisClient.lpush(LIST_ID, JSON.stringify(chatMessage), () => redisClient.ltrim(LIST_ID, 0, LIMIT));
+
         io.emit(events.CHAT_MESSAGE, chatMessage);
+        io.emit(events.MESSAGE_NOTIFICATION);
       });
 
       socket.on(events.TYPING, data => socket.broadcast.emit('typing', data));
@@ -41,6 +47,7 @@ const ChatService = {
       socket.on(events.DISCONNECT, () => {
         let user = users.get(socket.id);
         users.delete(socket.id);
+
         io.emit(events.OFFLINE, user);
         io.emit(events.UPDATE_LIST, Array.from(users.values()));
       });

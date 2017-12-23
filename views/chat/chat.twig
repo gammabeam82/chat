@@ -4,6 +4,22 @@
 
   {% set name = user.name or user.username %}
 
+  <audio id="sound-message" preload="auto">
+    <source src="sounds/message.mp3">
+  </audio>
+
+  <audio id="sound-online" preload="auto">
+    <source src="sounds/online.mp3">
+  </audio>
+
+  <audio id="sound-offline" preload="auto">
+    <source src="sounds/offline.mp3">
+  </audio>
+
+  <audio id="sound-typing" preload="auto">
+    <source src="sounds/typing.mp3">
+  </audio>
+
   <div class="container content">
     <div class="row">
       <div class="col-5">

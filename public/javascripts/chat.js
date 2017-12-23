@@ -1,10 +1,11 @@
 const events = {
   MESSAGE: 'message',
-  CHAT_MESSAGE: 'chat message',
+  CHAT_MESSAGE: 'chat_message',
   TYPING: 'typing',
   ONLINE: 'online',
   OFFLINE: 'offline',
-  UPDATE_LIST: 'update list'
+  UPDATE_LIST: 'update_list',
+  MESSAGE_NOTIFICATION: 'message_notification'
 };
 
 window.onload = () => {
@@ -16,6 +17,10 @@ window.onload = () => {
   const chat = document.getElementById('chat-container');
   const feedback = document.getElementById('feedback');
   const online = document.getElementById('online');
+  const soundMessage = document.getElementById('sound-message');
+  const soundOnline = document.getElementById('sound-online');
+  const soundOffline = document.getElementById('sound-offline');
+  const soundTyping = document.getElementById('sound-typing');
 
   const socket = io('', {
     reconnection: false,
@@ -74,11 +79,22 @@ window.onload = () => {
 
   socket.on(events.CHAT_MESSAGE, displayMessage);
 
-  socket.on(events.TYPING, data => feedback.innerText = `${data} is typing...`);
+  socket.on(events.MESSAGE_NOTIFICATION, () => soundMessage.play());
 
-  socket.on(events.ONLINE, data => feedback.innerText = `${data} is online.`);
+  socket.on(events.ONLINE, data => {
+    feedback.innerText = `${data} is online.`;
+    soundOnline.play();
+  });
 
-  socket.on(events.OFFLINE, data => feedback.innerText = `${data} is offline.`);
+  socket.on(events.OFFLINE, data => {
+    feedback.innerText = `${data} is offline.`;
+    soundOffline.play();
+  });
+
+  socket.on(events.TYPING, data => {
+    feedback.innerText = `${data} is typing...`;
+    soundTyping.play();
+  });
 
   socket.on(events.UPDATE_LIST, data => {
     online.innerText = `Online: ${data.length}`;
