@@ -4,8 +4,8 @@ const striptags = require('striptags');
 const dateFormat = require('dateformat');
 const nodeRedis = require('redis');
 const {REDIS, LIST_ID, LIMIT} = require('../config/config');
-const redisClient = nodeRedis.createClient(REDIS);
 
+const redisClient = nodeRedis.createClient(REDIS);
 const users = new Map();
 const io = new Server();
 
